@@ -10,6 +10,8 @@ link = input("Enter Article Link Here: ")
 domain = get_tld(link, as_object=True)
 print("We found this domain from your link: " + domain.fld) # --> www.example.test
 
+
+# Initialize Connection to Source Bias Database
 def create_connection(db_file):
 
     print("Creating Connection ...")
@@ -26,6 +28,7 @@ def create_connection(db_file):
 
     return conn
 
+# Find Row relative to DOMAIN thru SQL
 def select_bias(conn):
     """
     Query all rows in the tasks table
@@ -41,9 +44,8 @@ def select_bias(conn):
         print(row[0])
 
 def main():
-    database = r"C:\Users\timfl\Documents\GitHub\MisinformationProject\sqlite\BiasDB.db"
+    database = r"sqlite\BiasDB.db"
     
-    # print(os.path.abspath('.'))
     # create a database connection
     conn = create_connection(database)
     with conn:
