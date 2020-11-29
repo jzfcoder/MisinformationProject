@@ -44,7 +44,7 @@ def select_bias(conn):
         print(row[0])
 
 def main():
-    database = r"sqlite\BiasDB.db"
+    database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
     
     # create a database connection
     conn = create_connection(database)
