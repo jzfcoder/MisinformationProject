@@ -52,5 +52,5 @@ def main():
         print(domain.fld + "'s bias is...")
         select_bias(conn)
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
     main()
