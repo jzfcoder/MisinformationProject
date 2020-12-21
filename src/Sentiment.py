@@ -19,6 +19,5 @@ def run_quickstart():
     print("Sentiment: {}, {}".format(sentiment.score, sentiment.magnitude))
     # [END language_quickstart]
 
-
 if __name__ == "__main__":
     run_quickstart()
