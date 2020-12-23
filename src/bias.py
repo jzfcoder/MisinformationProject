@@ -2,7 +2,6 @@ from tld import get_tld
 
 import sqlite3
 from sqlite3 import Error
-
 import os
 
 link = input("Enter Article Link Here: ")
@@ -43,7 +42,7 @@ def select_bias(conn):
     for row in rows:
         print(row[0])
 
-def main():
+def bias():
     database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
     
     # create a database connection
@@ -53,4 +52,4 @@ def main():
         select_bias(conn)
 
 if __name__ == '__main__': 
-    main()
+    bias()

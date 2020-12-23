@@ -1,6 +1,6 @@
-def run_quickstart():
-    
-    from google.cloud import language_v1
+from google.cloud import language_v1
+
+def main():
     
     # Instantiates a client
     client = language_v1.LanguageServiceClient()
@@ -20,4 +20,4 @@ def run_quickstart():
     # [END language_quickstart]
 
 if __name__ == "__main__":
-    run_quickstart()
+    main()

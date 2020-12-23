@@ -1,8 +1,11 @@
 # MisinformationProject
  
-RUN sqlite3 from powershell!!!
+
 $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json"
 
+
+RUN sqlite3 from powershell!!!
+ .\sqlite3.exe
 .mode csv
 sqlite> .import C:\\Users\\timfl\\Documents\\GitHub\\MisinformationProject\\sqlite\\Databases\\ArticleDatabase\\ArticleDb.csv Articles
 sqlite> .schema Articles
