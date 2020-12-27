@@ -62,7 +62,7 @@ def isolate():
     print(bcolors.HEADER + "MATCHES: " + bcolors.ENDC, bcolors.OKCYAN + str(matches) + bcolors.ENDC)
 
 def fuzzy_main():
-    database = r"sqlite\Databases\ArticleDatabase\ArticleTestSQL.db"
+    database = r"C:\Users\timfl\Documents\GitHub\MisinformationProject\sqlite\Databases\ArticleDatabase\ArticleSQL.db"
     conn = create_connection(database)
     with conn:
         select_headlines(conn)
