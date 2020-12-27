@@ -66,6 +66,6 @@ def analyze_entities(text_content):
     # outputs the language, useful if language needs to be automatically detected.
     print(u"Language of the text: {}".format(response.language))
 
-if __name__ == "__main__":                                                                        
+if __name__ == "__main__":
     input = input("text here: ")
     analyze_entities(input)
