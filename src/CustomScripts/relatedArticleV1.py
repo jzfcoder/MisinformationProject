@@ -134,7 +134,7 @@ def select_headlines(conn):
         strOptions.append(row[0])
     print(bcolors.OKGREEN + "I'm Done :D" + bcolors.ENDC)
 def isolate():
-    str2m=Match = ""
+    str2Match = ""
     base2Match = []
 
     for i in strBase:
