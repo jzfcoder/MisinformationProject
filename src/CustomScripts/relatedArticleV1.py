@@ -5,7 +5,6 @@ import sqlite3
 import os
 '''
     str2Match = "Top Intelligence Democrat accuses Russia of cyber hack that resulted in 'big haul'"
-        "Top Intelligence Democrat accuses Russia of cyber hack that resulted in 'big haul'",
         "'Pretty clear' Russia behind SolarWinds hack, Pompeo says, becoming 1st US official to blame Moscow",
         "FBI scrambles to assess damage from Russia-linked US government hack",
         "Senator: Treasury Dept. email accounts compromised in hack"
@@ -15,6 +14,16 @@ import os
         "Biden receives first dose of COVID-19 vaccine, says nothing to worry about"
         "I would encourage the president to get a vaccine' for health, generating confidence"
         "Why 3 former presidents said they'd get the COVID vaccine on camera"
+        "AOC defends decision to get vaccine amid criticism from fellow lawmakers, including teammate"
+
+    str2Match = "Arizona GOP leaders' quarrel over election results could impact party's future"
+        "Trump entertains desperate schemes to overturn election"
+        "Barr says no reason for special counsels to investigate election, Hunter Biden, no basis for seize voting machines
+        "Voting machine firm demands pro-Trump attorney retract bogus claims about 2020 election"
+        "Pence urges conservatives 'to stay in the fight' as 'our election' continues"
+        "EU greenlights COVID-19 vaccine after agency gives safety OK"
+        "US close on deal with Pfizer for millions more vaccine doses"
+        "Panel recommends Moderna vaccine, paving way for FDA authorization"
 '''
 class bcolors:
     HEADER = '\033[95m'
@@ -29,10 +38,13 @@ class bcolors:
 def convert(lst): 
       
     return ' '.join(lst) 
-
 strOptions = []
 strBase = []
 
+'''
+    analyze_entities using Google Cloud Language API
+
+'''
 def analyze_entities(text_content):
     """
         Analyzing Entities from a String
@@ -109,7 +121,6 @@ def create_connection(db_file):
         print(e)
 
     return conn
-
 def select_headlines(conn):
     """
     Query all rows in the tasks table
@@ -122,7 +133,6 @@ def select_headlines(conn):
     for row in rows:
         strOptions.append(row[0])
     print(bcolors.OKGREEN + "I'm Done :D" + bcolors.ENDC)
-
 def isolate():
     str2m=Match = ""
     base2Match = []
@@ -139,9 +149,13 @@ def isolate():
         if (i[1] >= 50):
             matches.append(i)
     highest = process.extractOne(str2Match,strOptions)
+
+    f = open(r"TestingSaves\relatedArticle12.27.txt", "a")
+    f.write("\nINPUT: " + str(input) + "\n")
+    f.write("   MATCHES: " + str(matches))
+    f.close()
     print(bcolors.HEADER + "HIGHEST:" + bcolors.ENDC , bcolors.OKCYAN + str(highest) + bcolors.ENDC)
     print(bcolors.HEADER + "MATCHES: " + bcolors.ENDC, bcolors.OKCYAN + str(matches) + bcolors.ENDC)
-
 def fuzzy_main():
     database = r"C:\Users\timfl\Documents\GitHub\MisinformationProject\sqlite\Databases\ArticleDatabase\ArticleSQL.db"
     conn = create_connection(database)
@@ -149,8 +163,11 @@ def fuzzy_main():
         select_headlines(conn)
     isolate()
 
+'''
+    call main, kickoff functions
+    grab user input
+'''
 if __name__ == "__main__":
     input = input("text here: ")
     analyze_entities(input)
     fuzzy_main()
-
