@@ -25,10 +25,10 @@ def select_source(conn, headline):
     cur = conn.cursor()
     cur.execute("SELECT Provider FROM ArticleTest1 WHERE Headline LIKE ('%" + headline + "%')")
     rows = cur.fetchall()
+    print(headline)
     for row in rows:
         tempString = str(row)
         fString = tempString.replace('(','').replace('\'','').replace(',','').replace(')','')
-        print(fString)
         sourceAr.append(fString)
 
 def bias_connection(db_file):
@@ -40,9 +40,9 @@ def bias_connection(db_file):
 
     return conn
 
-def find_bias(conn, domain):
+def find_bias(conn, domain_):
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain LIKE ('%" + domain + "%')")
+    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain LIKE ('%" + domain_ + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)
@@ -53,9 +53,15 @@ def report_main():
     input = [
         "FBI scrambles to assess damage from Russia-linked US government hack",
         "Senator: Treasury Dept. email accounts compromised in hack",
-        "White House coronavirus response coordinator Birx plans to retire after travel backlash"
+        "White House coronavirus response coordinator Birx plans to retire after travel backlash",
+        "Fauci receives vaccine, has ''extreme confidence'' it''s safe, effective"
         ]
-
+    x = 0
+    for i in input:
+        x = x + 1
+        tstring = str(i).replace("''", "''''")
+        input.pop(x - 1)
+        input.insert(x - 1, tstring)
     for i in input:
         # access database and search for headline
         database = r"sqlite\Databases\ArticleDatabase\ArticleSQL.db"
@@ -71,6 +77,7 @@ def report_main():
             find_bias(conn, i)
         # search bias db for bias type
         # add 1 to int var of any bias
+
     left = biasAr.count("Left")
     leanLeft = biasAr.count("Lean Left")
     center = biasAr.count("Center")
@@ -79,6 +86,6 @@ def report_main():
     mixed = biasAr.count("Mixed")
 
     print(left, leanLeft, center, leanRight, right, mixed)
-
+    # fox fox ap abc
 if __name__ == '__main__':
     report_main()
