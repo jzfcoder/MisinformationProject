@@ -115,8 +115,6 @@ def report_main(input_):
     print("Coverage Report: " + str(fArray))
 '''
 
-
-
 def create_connection(db_file):
 
     # print("Creating Connection ...")
