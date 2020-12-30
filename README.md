@@ -1,9 +1,9 @@
 # MisinformationProject
 
-###OVERVIEW:
+### OVERVIEW:
 This coding project tackles a portion of online misinformation using a variety of methods. It provides a sentiment analysis of the headline, and returns an article source's political bias (from allsides.com). This program also provides related articles to widen a consumer's perspective and a coverage report for a viewer to see who is reporting certain issues.
 
-#####TECHNOLOGIES:
+##### TECHNOLOGIES:
 This project utilizes the following libraries and APIs:
 - SQLite (https://sqlite.com/docs.html)
 - Fuzzy Wuzzy (https://pypi.org/project/fuzzywuzzy/)
@@ -16,11 +16,11 @@ This project utilizes the following libraries and APIs:
     - https://cloud.google.com/natural-language/docs/analyzing-sentiment
 - tld (https://pypi.org/project/tld/)
 
-#####CREDENTIAL KEY:
+##### CREDENTIAL KEY:
 ```shell
 $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json"                
 ```
-#####CREATE SQLite DATABASE:
+##### CREATE SQLite DATABASE:
 Run sqlite3 from powershell!!!
 ```shell
  .\sqlite3.exe
@@ -41,7 +41,7 @@ sqlite> .save ArticleSQL.db
 sqlite>
 ```
 
-#####REMOVE SINGLE QUOTES:           
+##### REMOVE SINGLE QUOTES:           
 
 ```sql
 UPDATE 
