@@ -49,13 +49,7 @@ def find_bias(conn, domain_):
         fString = tempString.replace('(','').replace('\'','').replace(',','').replace(')','')
         biasAr.append(fString)
 
-def report_main():
-    input = [
-        "FBI scrambles to assess damage from Russia-linked US government hack",
-        "Senator: Treasury Dept. email accounts compromised in hack",
-        "White House coronavirus response coordinator Birx plans to retire after travel backlash",
-        "Fauci receives vaccine, has ''extreme confidence'' it''s safe, effective"
-        ]
+def report_main(input):
     x = 0
     for i in input:
         x = x + 1
@@ -87,5 +81,12 @@ def report_main():
 
     print(left, leanLeft, center, leanRight, right, mixed)
     # fox fox ap abc
+
 if __name__ == '__main__':
-    report_main()
+    input_ = input = [
+        "FBI scrambles to assess damage from Russia-linked US government hack",
+        "Senator: Treasury Dept. email accounts compromised in hack",
+        "White House coronavirus response coordinator Birx plans to retire after travel backlash",
+        "Fauci receives vaccine, has ''extreme confidence'' it''s safe, effective"
+        ]
+    report_main(input_)

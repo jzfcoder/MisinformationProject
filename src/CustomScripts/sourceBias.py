@@ -42,7 +42,9 @@ def select_bias(conn):
     for row in rows:
         print(row[0])
 
-def bias():
+def bias_main(link_):
+    
+    
     database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
     
     # create a database connection
