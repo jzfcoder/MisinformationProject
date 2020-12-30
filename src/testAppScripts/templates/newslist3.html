@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>News Articlese</title>
+</head>
+<body>
+
+<h1>Some newz</h1>
+    <p>for you </p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">Headline</th>
+    <th class="tg-0lax"><a href="{{storyUrl}}">{{headline}}</a></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Source Bias</td>
+    <td class="tg-0lax">{{bias}}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Sentiment</td>
+    <td class="tg-0lax">{{sentiment}}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Coverage</td>
+    <td class="tg-0lax">{{coverage}}</td>
+  </tr>
+    <tr>
+    <td class="tg-0lax">Related</td>
+    <td class="tg-0lax">
+        {% for x in relatedArticles %}
+        <p>{{x}}</p>
+         
+    {% endfor %}
+    
+    
+    
+    </td>
+  </tr>
+</tbody>
+</table>
+
+</html>
