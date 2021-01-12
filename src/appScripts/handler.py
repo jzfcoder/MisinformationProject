@@ -30,6 +30,10 @@ def form():
     else:
         return render_template("search.html", result=headline, resultURL=url1, headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage)
 
+@app.route("/documentation")
+def documentation():
+    return render_template("docs.html")
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

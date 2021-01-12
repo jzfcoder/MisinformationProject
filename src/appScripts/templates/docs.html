@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+<h1>Misinformation Project Documentation:</h1>
+<h3>Overview</h3>
+<p>This coding project tackles a portion of online misinformation using a variety of methods. It provides a sentiment analysis of the headline, and returns an article source's political bias (from allsides.com). This program also provides related articles to widen a consumer's perspective and a coverage report for a viewer to see who is reporting certain issues.</p>
+<h3>Technologies:</h3>
+<p>This project utilizes the following libraries and APIs:</p>
+<ul>
+    <li>SQLite (<a href=https://sqlite.com/docs.html>https://sqlite.com/docs.html</a>)</li>
+    <li>Fuzzy Wuzzy (<a href=https://pypi.org/project/fuzzywuzzy>https://pypi.org/project/fuzzywuzzy/</a>)</li>
+        <dd><a href=https://www.datacamp.com/community/tutorials/fuzzy-string-python>https://www.datacamp.com/community/tutorials/fuzzy-string-python</a></dd>
+        <dd><a href=https://en.wikipedia.org/wiki/Levenshtein_distance>https://en.wikipedia.org/wiki/Levenshtein_distance</a></dd>
+    <li>Google Cloud Natural Language, Text Sentiment and entities function</li>
+        <dd><a href=https://cloud.google.com/natural-language/docs/analyzing-entities>https://cloud.google.com/natural-language/docs/analyzing-entities</a></dd>
+        <dd><a href=https://cloud.google.com/natural-language/docs/analyzing-sentiment>https://cloud.google.com/natural-language/docs/analyzing-sentiment</a></dd>
+    <li>tld (<a href=https://pypi.org/project/tld>https://pypi.org/project/tld/</a>)</li>
+</ul>
+<h3>Find this project on github: <a href=https://github.com/jzfcoder/MisinformationProject>https://github.com/jzfcoder/MisinformationProject</a></h3>
+
+{% endblock %}
