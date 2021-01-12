@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} Search Page {% endblock %}
+
+{% block content %}
+
+<form action="#" method="post">
+    <label for="fname">Headline:</label><br>
+    <input type="text" name="hd"><br>
+    <label for="lname">URL:</label><br>
+    <input type="text" name="url"><br><br>
+    <input type="submit" value="Submit">
+</form>
+<p>{{result}}</p>
+<p>{{resultURL}}</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">Headline</th>
+    <th class="tg-0lax"><a href="{{storyURL}}">{{headline}}</a></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Source Bias</td>
+    <td class="tg-0lax">{{bias}}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Sentiment</td>
+    <td class="tg-0lax">{{sentiment}}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Coverage</td>
+    <td class="tg-0lax">{{coverage}}</td>
+  </tr>
+    <tr>
+    <td class="tg-0lax">Related</td>
+    <td class="tg-0lax">
+        {% for x in related %}
+        <p>{{x}}</p>
+         
+    {% endfor %}
+    </td>
+  </tr>
+</tbody>
+</table>
+
+{% endblock %}
