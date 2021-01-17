@@ -19,10 +19,14 @@ def test_main():
 def convert(lst): 
       
     return ' '.join(lst) 
-      
+        
 # Driver code 
 lst = ['geeks', 'for', 'geeks'] 
 print(convert(lst)) 
+
+matches = 
+
+fMatches = str(matches).replace("'". "\\'")
 
 '''
 if __name__ == "__main__":
