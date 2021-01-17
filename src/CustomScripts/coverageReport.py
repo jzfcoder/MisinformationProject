@@ -23,7 +23,7 @@ def article_connection(db_file):
 
 def select_source(conn, headline):
     cur = conn.cursor()
-    cur.execute("SELECT Provider FROM ArticleTest1 WHERE Headline LIKE ('%" + headline + "%')")
+    cur.execute("SELECT Provider FROM ArticleTable WHERE Headline LIKE ('%" + headline + "%')")
     rows = cur.fetchall()
     print(headline)
     for row in rows:
@@ -42,7 +42,7 @@ def bias_connection(db_file):
 
 def find_bias(conn, domain_):
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain LIKE ('%" + domain_ + "%')")
+    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain LIKE ('%" + domain_ + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)
@@ -58,14 +58,14 @@ def report_main(input):
         input.insert(x - 1, tstring)
     for i in input:
         # access database and search for headline
-        database = r"sqlite\Databases\ArticleDatabase\ArticleSQL.db"
+        database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
         conn = article_connection(database)
         with conn:
             select_source(conn, i)
         # return source in sourceAr
     for i in sourceAr:
         # access bias database and search domains for source/bias
-        database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
+        database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
         conn = bias_connection(database)
         with conn:
             find_bias(conn, i)

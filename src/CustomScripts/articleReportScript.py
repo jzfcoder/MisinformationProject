@@ -55,7 +55,7 @@ def sentiment_main(text):
     # print("Sentiment: {}, {}".format(sentiment.score, sentiment.magnitude))
 
 def bias_main():
-    database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
+    database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
     
     # create a database connection
     conn = create_connection(database)
@@ -66,7 +66,7 @@ def bias_main():
 def related_main():
     analyze_entities(headline)
     
-    database = r"sqlite\Databases\ArticleDatabase\ArticleSQL.db"
+    database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
     conn = create_connection(database)
     with conn:
         select_headlines(conn)
@@ -82,14 +82,14 @@ def report_main(input_):
         input.insert(x - 1, tstring)
     for i in input:
         # access database and search for headline
-        database = r"sqlite\Databases\ArticleDatabase\ArticleSQL.db"
+        database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
         conn = create_connection(database)
         with conn:
             select_source(conn, i)
         # return source in sourceAr
     for i in sourceAr:
         # access bias database and search domains for source/bias
-        database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
+        database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
         conn = create_connection(database)
         with conn:
             find_bias(conn, i)
@@ -138,7 +138,7 @@ def select_bias(conn):
     :return:
     """
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain like '%" + domain.fld + "%' ")
+    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain like '%" + domain.fld + "%' ")
 
     rows = cur.fetchall()
 
@@ -152,7 +152,7 @@ def select_headlines(conn):
     :return:
     """
     cur = conn.cursor()
-    cur.execute("SELECT Headline FROM ArticleTest1")
+    cur.execute("SELECT Headline FROM ArticleTable")
     rows = cur.fetchall()
     for row in rows:
         strOptions.append(row[0])
@@ -160,7 +160,7 @@ def select_headlines(conn):
 
 def select_source(conn, headline):
     cur = conn.cursor()
-    cur.execute("SELECT Provider FROM ArticleTest1 WHERE Headline LIKE ('%" + headline + "%')")
+    cur.execute("SELECT Provider FROM ArticleTable WHERE Headline LIKE ('%" + headline + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)
@@ -169,7 +169,7 @@ def select_source(conn, headline):
 
 def find_bias(conn, domain_):
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain LIKE ('%" + domain_ + "%')")
+    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain LIKE ('%" + domain_ + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)

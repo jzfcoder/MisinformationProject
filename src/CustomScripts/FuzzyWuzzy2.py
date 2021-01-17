@@ -44,7 +44,7 @@ def select_headlines(conn):
     :return:
     """
     cur = conn.cursor()
-    cur.execute("SELECT Headline FROM ArticleTest1")
+    cur.execute("SELECT Headline FROM ArticleTable")
     rows = cur.fetchall()
     for row in rows:
         strOptions.append(row[0])
@@ -62,7 +62,7 @@ def isolate():
     print(bcolors.HEADER + "MATCHES: " + bcolors.ENDC, bcolors.OKCYAN + str(matches) + bcolors.ENDC)
 
 def fuzzy_main():
-    database = r"C:\Users\timfl\Documents\GitHub\MisinformationProject\sqlite\Databases\ArticleDatabase\ArticleSQL.db"
+    database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
     conn = create_connection(database)
     with conn:
         select_headlines(conn)

@@ -35,7 +35,7 @@ def select_bias(conn):
     :return:
     """
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasDB WHERE Domain like '%" + domain.fld + "%' ")
+    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain like '%" + domain.fld + "%' ")
 
     rows = cur.fetchall()
 
@@ -45,7 +45,7 @@ def select_bias(conn):
 def bias_main(link_):
     
     
-    database = r"sqlite\Databases\BiasDatabase\BiasDB.db"
+    database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
     
     # create a database connection
     conn = create_connection(database)
