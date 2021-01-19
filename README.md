@@ -53,3 +53,8 @@ WHERE
 
 COMMIT;
 ```
+
+##### DECLARE CSS:
+```html
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+```
