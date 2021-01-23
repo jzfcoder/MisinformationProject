@@ -21,9 +21,6 @@ import os
         "Barr says no reason for special counsels to investigate election, Hunter Biden, no basis for seize voting machines
         "Voting machine firm demands pro-Trump attorney retract bogus claims about 2020 election"
         "Pence urges conservatives 'to stay in the fight' as 'our election' continues"
-        "EU greenlights COVID-19 vaccine after agency gives safety OK"
-        "US close on deal with Pfizer for millions more vaccine doses"
-        "Panel recommends Moderna vaccine, paving way for FDA authorization"
 '''
 class bcolors:
     HEADER = '\033[95m'
@@ -146,11 +143,11 @@ def isolate():
     Ratios = process.extract(str2Match,strOptions)
     matches = []
     for i in Ratios:
-        if (i[1] >= 50):
+        if (i[1] >= 55):
             matches.append(i)
     highest = process.extractOne(str2Match,strOptions)
 
-    f = open(r"TestingSaves\relatedArticle12.27.txt", "a")
+    f = open(r"TestingSaves\RA-EFH\RA-EFH1.23.txt", "a")
     f.write("\nINPUT: " + str(input) + "\n")
     f.write("   MATCHES: " + str(matches))
     f.close()

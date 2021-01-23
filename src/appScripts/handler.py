@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
-from compute import get_bias, get_sentiment, get_related, get_coverage
+from compute import get_bias, get_sentiment, get_related, get_coverage, get_score, convert_array
 import os
 
 app = Flask(__name__)
@@ -10,12 +10,13 @@ def home():
 
 @app.route("/search", methods=["POST", "GET"])
 def form():
-    headline = "None found :/"
-    bias = "None found"
-    sentiment = "None found"
-    related = ["None found"]
-    coverage = "None found"
-    url1 = "None found"
+    headline = "---"
+    bias = "---"
+    sentiment = "---"
+    related = ""
+    coverage = "---"
+    url1 = "---"
+    score = "---"
 
     if request.method == "POST":
         headline = request.form["hd"]
@@ -25,10 +26,12 @@ def form():
         sentiment = get_sentiment(headline)
         related = get_related(headline)
         coverage = get_coverage(related)
+        score = get_score(coverage, sentiment, bias)
+        related = convert_array(related)
 
-        return render_template("search.html", result=headline, resultURL=url1, headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage, storyURL=url1)
+        return render_template("search.html", headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage, storyURL=url1, score=score)
     else:
-        return render_template("search.html", result=headline, resultURL=url1, headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage)
+        return render_template("search.html", headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage, score=score)
 
 @app.route("/documentation")
 def documentation():

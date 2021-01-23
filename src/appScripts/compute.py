@@ -6,13 +6,24 @@ from tld import get_tld
 import sqlite3
 import os
 
-def convert1(lst): 
-      
+
+def convert1(lst):
+
     return ' '.join(lst)
 def convert(lst):
-    str =  ''.join(lst) 
+    str = ''.join(lst)
     return str
 
+def convert_array(array):
+    track = 0
+    for x in array:
+        x = x.replace("\'\'\'\'", "\'")
+        array.pop(track)
+        array.insert(track, x)
+        print(x)
+        track = track + 1
+    print(array)
+    return array
 
 '''
     finds bias from article url
@@ -24,7 +35,7 @@ def convert(lst):
 def get_bias(link):
     domain_ = get_tld(link, as_object=True)
     database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
-    
+
     # create a database connection
     conn = create_connection(database)
     # with conn:
@@ -37,15 +48,18 @@ def get_bias(link):
     returns: sentiment score of given text
 '''
 def get_sentiment(text):
-    credentials = service_account.Credentials.from_service_account_file(r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
+    credentials = service_account.Credentials.from_service_account_file(
+        r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
     # Instantiates a client
     client = language_v1.LanguageServiceClient(credentials=credentials)
-    # [END language_python_migration_client] 
+    # [END language_python_migration_client]
 
-    document = language_v1.Document(content=text, type_=language_v1.Document.Type.PLAIN_TEXT)
+    document = language_v1.Document(
+        content=text, type_=language_v1.Document.Type.PLAIN_TEXT)
 
     # Sends API Request to detect the sentiment of the text
-    sentiment = client.analyze_sentiment(request={'document': document}).document_sentiment
+    sentiment = client.analyze_sentiment(
+        request={'document': document}).document_sentiment
 
     return(sentiment.score)
     # print("Text: {}".format(text))
@@ -91,7 +105,7 @@ def get_coverage(related):
         with conn:
             sourceAr.append(select_source(conn, i))
         # return source in sourceAr
-    
+
     for i in sourceAr:
         # access bias database and search domains for source/bias
         database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
@@ -102,7 +116,7 @@ def get_coverage(related):
             biasAr.append(find_bias(conn, tempi))
         # search bias db for bias type
         # add 1 to int var of any bias
-    
+
     y = 0
     for i in biasAr:
         y = y + 1
@@ -111,7 +125,7 @@ def get_coverage(related):
         biasAr.insert(y - 1, tstring)
 
     print(biasAr)
-    
+
     left = biasAr.count("Left")
     leanLeft = biasAr.count("Lean Left")
     center = biasAr.count("Center")
@@ -121,6 +135,75 @@ def get_coverage(related):
 
     finArray = [left, leanLeft, center, leanRight, right, mixed]
     return finArray
+
+'''
+    create score using report, sentiment, and bias
+    args:
+        report: coverage report array
+        sentiment: headline sentiment
+        bias: article source bias
+'''
+def get_score(report, sentiment, bias):
+    sum = 0
+    left = 0
+    right = 0
+    center = 0
+    difference = 0
+    it = 0
+
+    reportFin = 0
+    sentFin = 0
+    biasFin = 0
+
+    for i in report:
+        sum = sum + i
+    
+    for i in report:
+        it = it + 1
+        if (it <= 2):
+            left = left + i
+        if (it > 3):
+            right = right + i
+            
+        if (it == 3):
+            center = i
+            left = left + center
+            right = right + center  
+
+    if (left > right):
+        difference = left - right
+    if (right > left):
+        difference = right - left
+    if (right == left):
+        return 10
+
+    reportRes = sum - difference
+    reportQuot = reportRes/sum
+    reportFin = reportQuot*10
+
+    sentAbs = abs(sentiment)
+    revSent = 1 - sentAbs
+    sentFin = 10*revSent
+
+    if (bias == "Left"):
+        biasFin = 1
+    if (bias == "Lean Left"):
+        biasFin = 5
+    if (bias == "Center"):
+        biasFin = 10
+    if (bias == "Lean Right"):
+        biasFin = 5
+    if (bias == "Right"):
+        biasFin = 1
+
+    sentFin = round(sentFin)
+    reportFinn = reportFin*0.25
+    sentFinn = sentFin*0.35
+    biasFinn = biasFin*0.4
+
+    fin = reportFinn + sentFinn + biasFinn
+
+    return fin
 
 
 
@@ -135,11 +218,13 @@ def get_coverage(related):
 def select_source(conn, headline):
     sourceArray = []
     cur = conn.cursor()
-    cur.execute("SELECT Provider FROM ArticleTable WHERE Headline LIKE ('%" + headline + "%')")
+    cur.execute(
+        "SELECT Provider FROM ArticleTable WHERE Headline LIKE ('%" + headline + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)
-        fString = tempString.replace('(','').replace('\'','').replace(',','').replace(')','').replace("''",'')
+        fString = tempString.replace('(', '').replace('\'', '').replace(
+            ',', '').replace(')', '').replace("''", '')
         sourceArray.append(fString)
     return sourceArray
 
@@ -154,11 +239,13 @@ def select_source(conn, headline):
 def find_bias(conn, domain_):
     biasArray = []
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain LIKE ('%" + domain_ + "%')")
+    cur.execute(
+        "SELECT BiasRating FROM BiasTable WHERE Domain LIKE ('%" + domain_ + "%')")
     rows = cur.fetchall()
     for row in rows:
         tempString = str(row)
-        fString = tempString.replace('(','').replace('\'','').replace(',','').replace(')','')
+        fString = tempString.replace('(', '').replace(
+            '\'', '').replace(',', '').replace(')', '')
         biasArray.append(fString)
     return biasArray
 
@@ -177,7 +264,8 @@ def select_bias(conn, domain):
     :return:
     """
     cur = conn.cursor()
-    cur.execute("SELECT BiasRating FROM BiasTable WHERE Domain like '%" + domain.fld + "%' ")
+    cur.execute(
+        "SELECT BiasRating FROM BiasTable WHERE Domain like '%" + domain.fld + "%' ")
 
     rows = cur.fetchall()
 
@@ -199,14 +287,14 @@ def isolate(strBase, strOptions):
     for i in strBase:
         temp = i[0]
         base2Match.append(temp)
-    
+
     str2Match = (convert1(base2Match))
-    Ratios = process.extract(str2Match,strOptions)
+    Ratios = process.extract(str2Match, strOptions)
     matches = []
     for i in Ratios:
         if (i[1] >= 50):
             matches.append(i)
-    highest = process.extractOne(str2Match,strOptions)
+    highest = process.extractOne(str2Match, strOptions)
 
     '''
         f = open(r"TestingSaves\relatedArticle12.27.txt", "a")
@@ -221,8 +309,6 @@ def isolate(strBase, strOptions):
         results.append(i[0])
     return results
 
-
-
 '''
     analyzes text for entities using google cloud language API
     can also return salience score
@@ -231,7 +317,8 @@ def isolate(strBase, strOptions):
     return: array of entities found in text_content
 '''
 def analyze_entities(text_content):
-    credentials = service_account.Credentials.from_service_account_file(r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
+    credentials = service_account.Credentials.from_service_account_file(
+        r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
     # Instantiates a client
     client = language_v1.LanguageServiceClient(credentials=credentials)
 
@@ -250,7 +337,8 @@ def analyze_entities(text_content):
     encoding_type = language_v1.EncodingType.UTF8
 
     # Pass in client request with defined specifications
-    response = client.analyze_entities(request = {'document': document, 'encoding_type': encoding_type})
+    response = client.analyze_entities(
+        request={'document': document, 'encoding_type': encoding_type})
 
     # Loop through entitites returned from the API
     for entity in response.entities:
@@ -260,7 +348,7 @@ def analyze_entities(text_content):
             Get entity type (PERSON, LOCATION, ADDRESS, NUMBER, etc)
             print(language_v1.Entity.Type(entity.type_).name)
         '''
-        
+
         # print(entity.name)
         # Get salience score in [0, 1.0] range
         # print(u"Salience score: {}".format(entity.salience))
@@ -273,7 +361,8 @@ def analyze_entities(text_content):
             tempArray.append(u"{}".format(mention.text.content))
 
             # Get mention type, e.g. PROPER for proper noun
-            tempArray.append(u"{}".format(language_v1.EntityMention.Type(mention.type_).name))
+            tempArray.append(u"{}".format(
+                language_v1.EntityMention.Type(mention.type_).name))
 
             strBase.append(tempArray)
             # print(tempArray)
@@ -289,7 +378,7 @@ def analyze_entities(text_content):
 def create_connection(db_file):
 
     # print("Creating Connection ...")
-    
+
     conn = None
     try:
         conn = sqlite3.connect(db_file)
