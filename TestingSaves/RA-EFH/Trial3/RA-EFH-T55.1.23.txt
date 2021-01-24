@@ -1,4 +1,3 @@
-
 INPUT: Arizona GOP leaders' quarrel over election results could impact party's future
    MATCHES: [('Barr says no reason for special counsels to investigate election, Hunter Biden, no basis for seize voting machines', 86), ("Arizona GOP leaders'' quarrel over election results could impact party''s future", 86), ('Voting machine firm demands pro-Trump attorney retract bogus claims about 2020 election', 86), ("Pence urges conservatives ''to stay in the fight'' as ''our election'' continues", 86)]
 INPUT: Trump entertains desperate schemes to overturn election
