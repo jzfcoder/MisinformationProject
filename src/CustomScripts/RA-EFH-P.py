@@ -1,3 +1,4 @@
+from google.oauth2 import service_account
 from google.cloud import language_v1
 from fuzzywuzzy import process
 from sqlite3 import Error
@@ -40,7 +41,6 @@ strBase = []
 
 '''
     analyze_entities using Google Cloud Language API
-
 '''
 def analyze_entities(text_content):
     """
@@ -50,7 +50,8 @@ def analyze_entities(text_content):
         text_content The text content to analyze
     """
     # Set connection to client as variable
-    client = language_v1.LanguageServiceClient()
+    credentials = service_account.Credentials.from_service_account_file(r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
+    client = language_v1.LanguageServiceClient(credentials=credentials)
 
     # Set type_ to read PLAIN_TEXT
     type_ = language_v1.Document.Type.PLAIN_TEXT
@@ -148,7 +149,7 @@ def isolate():
     Ratios = process.extract(str2Match,strOptions)
     matches = []
     for i in Ratios:
-        if (i[1] >= 55):
+        if (i[1] >= 65):
             matches.append(i)
     highest = process.extractOne(str2Match,strOptions)
 
@@ -156,7 +157,7 @@ def isolate():
         fin = str(input)
         fMatches = str(matches).replace("'". "\\'")
     '''
-    f = open(r"TestingSaves\RA-EFH-P1.23.txt", "a")
+    f = open(r"TestingSaves\RA-EFH-P\Trial3\RA-EFH-P-T65.1.23.txt", "a")
     f.write("\nINPUT: " + str(input) + "\n")
     f.write("   MATCHES: " + str(matches))
     f.close()
