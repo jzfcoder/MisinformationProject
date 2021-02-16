@@ -294,7 +294,6 @@ def isolate(strBase, strOptions):
     for i in Ratios:
         if (i[1] >= 50):
             matches.append(i)
-    highest = process.extractOne(str2Match, strOptions)
 
     '''
         f = open(r"TestingSaves\relatedArticle12.27.txt", "a")

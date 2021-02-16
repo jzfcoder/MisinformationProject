@@ -33,6 +33,18 @@ def form():
     else:
         return render_template("search.html", headline=headline, bias=bias, sentiment=sentiment, related=related, coverage=coverage, score=score)
 
+@app.route("/aboutSentiment")
+def Sentiment():
+    return
+
+@app.route("/aboutBias")
+def Bias():
+    return
+
+@app.route("/aboutRelatedArticles")
+def RelatedArticles():
+    return render_template("relatedArticles.html")
+
 @app.route("/documentation")
 def documentation():
     return render_template("docs.html")

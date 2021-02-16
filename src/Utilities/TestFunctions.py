@@ -24,8 +24,6 @@ def convert(lst):
 lst = ['geeks', 'for', 'geeks'] 
 print(convert(lst)) 
 
-matches = 
-
 fMatches = str(matches).replace("'". "\\'")
 
 '''
