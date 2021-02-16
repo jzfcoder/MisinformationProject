@@ -124,6 +124,7 @@ def create_connection(db_file):
         print(e)
 
     return conn
+
 def select_headlines(conn):
     """
     Query all rows in the tasks table
@@ -136,6 +137,7 @@ def select_headlines(conn):
     for row in rows:
         strOptions.append(row[0])
     print(bcolors.OKGREEN + "I'm Done :D" + bcolors.ENDC)
+
 def isolate():
     str2Match = ""
     base2Match = []
@@ -163,6 +165,7 @@ def isolate():
     f.close()
     print(bcolors.HEADER + "HIGHEST:" + bcolors.ENDC , bcolors.OKCYAN + str(highest) + bcolors.ENDC)
     print(bcolors.HEADER + "MATCHES: " + bcolors.ENDC, bcolors.OKCYAN + str(matches) + bcolors.ENDC)
+
 def fuzzy_main():
     database = r"sqlite\Databases\MainDatabase\MainDatabase.db"
     conn = create_connection(database)

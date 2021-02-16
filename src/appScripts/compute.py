@@ -316,9 +316,14 @@ def isolate(strBase, strOptions):
     return: array of entities found in text_content
 '''
 def analyze_entities(text_content):
-    credentials = service_account.Credentials.from_service_account_file(
-        r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
-    # Instantiates a client
+    """
+        Analyzing Entities from a String
+
+        Args:
+        text_content The text content to analyze
+    """
+    # Set connection to client as variable
+    credentials = service_account.Credentials.from_service_account_file(r"C:\Users\timfl\Documents\GoogleCloudKeys\MyFirstProject-e85779938beb.json")
     client = language_v1.LanguageServiceClient(credentials=credentials)
 
     # Set type_ to read PLAIN_TEXT
@@ -336,10 +341,10 @@ def analyze_entities(text_content):
     encoding_type = language_v1.EncodingType.UTF8
 
     # Pass in client request with defined specifications
-    response = client.analyze_entities(
-        request={'document': document, 'encoding_type': encoding_type})
+    response = client.analyze_entities(request = {'document': document, 'encoding_type': encoding_type})
 
     # Loop through entitites returned from the API
+    base = []
     for entity in response.entities:
         '''
             Get entity name
@@ -347,26 +352,21 @@ def analyze_entities(text_content):
             Get entity type (PERSON, LOCATION, ADDRESS, NUMBER, etc)
             print(language_v1.Entity.Type(entity.type_).name)
         '''
-
-        # print(entity.name)
-        # Get salience score in [0, 1.0] range
-        # print(u"Salience score: {}".format(entity.salience))
-        strBase = []
         # Loop over the mentions of entity from input document.
         for mention in entity.mentions:
             tempArray = []
 
-            # append name of entity to tempArray
-            tempArray.append(u"{}".format(mention.text.content))
+            mentionType = u"{}".format(language_v1.EntityMention.Type(mention.type_).name)
 
-            # Get mention type, e.g. PROPER for proper noun
-            tempArray.append(u"{}".format(
-                language_v1.EntityMention.Type(mention.type_).name))
+            if (mentionType != "PROPER"):
+                # append name of entity to tempArray
+                tempArray.append(u"{}".format(mention.text.content))
 
-            strBase.append(tempArray)
-            # print(tempArray)
-        return strBase
-    # print(strBase)
+                # Get mention type, e.g. PROPER for proper noun
+                tempArray.append(u"{}".format(language_v1.EntityMention.Type(mention.type_).name))
+
+                base.append(tempArray)
+    return base
 
 '''
     create a database connection to the specified SQLite database

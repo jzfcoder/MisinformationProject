@@ -29,7 +29,7 @@ def isolate(strBase, strOptions, Input):
     Ratios = process.extract(str2Match, test, scorer=fuzz.WRatio)
     matches = []
     for i in Ratios:
-        if (i[1] >= 50):
+        if (i[1] >= 55):
             matches.append(i)
 
     results = []
@@ -53,9 +53,9 @@ def isolate(strBase, strOptions, Input):
             test.replace(",", "")
             headlineURL.append(test)
     
-    f = open(r"TestingSaves\RA-EFH-EFD\Trial1", "a")
+    f = open(r"TestingSaves\RA-EFH-EFD\Trial1\RA-EFH-EFD-T55.2.16.txt", "a")
     f.write("\nINPUT: " + str(Input) + "\n")
-    f.write("   MATCHES: " + str(matches))
+    f.write("   MATCHES: " + str(headlineURL))
     f.close()
     return headlineURL
 
